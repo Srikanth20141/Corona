@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-// import 'package:url_launcher/url_launcher.dart';
 
 import 'drawer.dart';
 
@@ -13,13 +12,13 @@ class Corona {
   final String death;
   final String hospitalised;
   final String recovered;
-  final String local_New_deaths;
-  final String local_new_cases;
-  final String global_total_cases;
-  final String global_recovered;
-  final String global_deaths;
-  final String global_new_cases;
-  final String global_new_deaths;
+  final String localNewDeaths;
+  final String localNewCases;
+  final String globalTotalCases;
+  final String globalRecovered;
+  final String globalDeaths;
+  final String globalNewCases;
+  final String globalNewDeaths;
 
   Corona({
     this.local,
@@ -27,13 +26,13 @@ class Corona {
     this.death,
     this.hospitalised,
     this.recovered,
-    this.local_New_deaths,
-    this.local_new_cases,
-    this.global_total_cases,
-    this.global_recovered,
-    this.global_deaths,
-    this.global_new_cases,
-    this.global_new_deaths,
+    this.localNewDeaths,
+    this.localNewCases,
+    this.globalTotalCases,
+    this.globalRecovered,
+    this.globalDeaths,
+    this.globalNewCases,
+    this.globalNewDeaths,
   });
 
   factory Corona.fromJson(Map<String, dynamic> json) {
@@ -43,13 +42,13 @@ class Corona {
       death: json['local_deaths'],
       hospitalised: json['local_total_number_of_individuals_in_hospitals'],
       recovered: json['local_recovered'],
-      local_New_deaths: json['local_new_deaths'],
-      local_new_cases: json['local_new_cases'],
-      global_total_cases: json['global_total_cases'],
-      global_recovered: json['global_recovered'],
-      global_deaths: json['global_deaths'],
-      global_new_cases: json['global_new_cases'],
-      global_new_deaths: json['global_new_deaths'],
+      localNewDeaths: json['local_new_deaths'],
+      localNewCases: json['local_new_cases'],
+      globalTotalCases: json['global_total_cases'],
+      globalRecovered: json['global_recovered'],
+      globalDeaths: json['global_deaths'],
+      globalNewCases: json['global_new_cases'],
+      globalNewDeaths: json['global_new_deaths'],
     );
   }
 }
@@ -65,18 +64,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<Corona> futureAlbum;
-  String _local_active_cases;
-  String _update_date_time;
-  String local_deaths;
+  String local;
+  String time;
+  String death;
   String hospitalised;
   String recovered;
-  String local_New_deaths;
-  String local_new_cases;
-  String global_total_cases;
-  String global_recovered;
-  String global_deaths;
-  String global_new_cases;
-  String global_new_deaths;
+  String localNewDeaths;
+  String localNewCases;
+  String globalTotalCases;
+  String globalRecovered;
+  String globalDeaths;
+  String globalNewCases;
+  String globalNewDeaths;
 
   @override
   void initState() {
@@ -95,32 +94,25 @@ class _MyAppState extends State<MyApp> {
       Response response = await Dio()
           .get("https://www.hpb.health.gov.lk/api/get-current-statistical");
       setState(() {
-        _local_active_cases =
-            (response.data['data']['local_total_cases']).toString();
-        _update_date_time = (response.data['data']['update_date_time']);
-        local_deaths = (response.data['data']['local_deaths']).toString();
+        local = (response.data['data']['local_total_cases']).toString();
+        time = (response.data['data']['update_date_time']);
+        death = (response.data['data']['local_deaths']).toString();
         hospitalised = (response.data['data']
                 ['local_total_number_of_individuals_in_hospitals'])
             .toString();
         recovered = (response.data['data']['local_recovered']).toString();
-        local_New_deaths =
-            (response.data['data']['local_new_deaths']).toString();
-        local_new_cases = (response.data['data']['local_new_cases']).toString();
-        global_total_cases =
+        localNewDeaths = (response.data['data']['local_new_deaths']).toString();
+        localNewCases = (response.data['data']['local_new_cases']).toString();
+        globalTotalCases =
             (response.data['data']['global_total_cases']).toString();
-        global_recovered =
+        globalRecovered =
             (response.data['data']['global_recovered']).toString();
-        global_deaths = (response.data['data']['global_deaths']).toString();
-        global_new_cases =
-            (response.data['data']['global_new_cases']).toString();
-        global_new_deaths =
+        globalDeaths = (response.data['data']['global_deaths']).toString();
+        globalNewCases = (response.data['data']['global_new_cases']).toString();
+        globalNewDeaths =
             (response.data['data']['global_new_deaths']).toString();
       });
-
-      //data.add(response.data['data']);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   @override
@@ -150,7 +142,6 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     exit(0);
                   }),
-              //IconButton(icon: (Icon(Icons.refresh)), onPressed: (){null;}),
             ],
           ),
           drawer: Drawer(
@@ -171,396 +162,94 @@ class _MyAppState extends State<MyApp> {
                         "Sri Lanka",
                         style: TextStyle(fontSize: 17, fontFamily: 'Schyler'),
                       ),
-                     // Divider(),
                       Text("Local"),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.purple[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "Confirmed",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      _local_active_cases != null
-                                          ? Text(
-                                              _local_active_cases,
-                                              style: TextStyle(
-                                                  fontSize: 27,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          : CircularProgressIndicator(
-                                              strokeWidth: 1.5,
-                                            ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.green[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Recovered",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  recovered != null
-                                      ? Text(
-                                          recovered,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: local,
+                              text: 'Confirmed',
+                              color: Colors.purple[100]),
+                          CardCount(
+                              numberCount: recovered,
+                              text: 'Recovered',
+                              color: Colors.green[100]),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.orange[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "Hospitalised",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  hospitalised != null
-                                      ? Text(
-                                          hospitalised,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.red[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Deaths",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  recovered != null
-                                      ? Text(
-                                          local_deaths,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: hospitalised,
+                              text: 'Hospitalised',
+                              color: Colors.orange[100]),
+                          CardCount(
+                              numberCount: death,
+                              text: 'Deaths',
+                              color: Colors.red[100]),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 200),
-                        child: Text(_update_date_time.toString()),
+                        child: Text(time.toString()),
                       ),
                       Text("Local confirmed case in last 24 hours"),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.purple[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "New Confirmed",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  local_new_cases != null
-                                      ? Text(
-                                          local_new_cases,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.red[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Deaths",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  local_New_deaths != null
-                                      ? Text(
-                                          local_New_deaths,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: localNewCases,
+                              text: 'New Confirmed',
+                              color: Colors.purple[100]),
+                          CardCount(
+                              numberCount: localNewDeaths,
+                              text: 'Deaths',
+                              color: Colors.red[100]),
                         ],
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                       Divider(),
+                      Divider(),
                       Text("Global"),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.purple[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "Confirmed",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  global_total_cases != null
-                                      ? Text(
-                                          global_total_cases.toString(),
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.green[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Recovered",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  global_recovered != null
-                                      ? Text(
-                                          global_recovered,
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: globalTotalCases,
+                              text: 'Confirmed',
+                              color: Colors.purple[100]),
+                          CardCount(
+                              numberCount: globalRecovered,
+                              text: 'Recovered',
+                              color: Colors.green[100]),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.orange[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "Hospitalised",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  Text(
-                                    "N/A",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.red[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Deaths",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  global_deaths != null
-                                      ? Text(
-                                          global_deaths,
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: 'N/A',
+                              text: 'Hospitalised',
+                              color: Colors.orange[100]),
+                          CardCount(
+                              numberCount: globalDeaths,
+                              text: 'Deaths',
+                              color: Colors.red[100]),
                         ],
                       ),
                       Text("Global confirmed case in last 24 hours"),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Card(
-                            color: Colors.purple[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    "New Confirmed",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  global_new_cases != null
-                                      ? Text(
-                                          global_new_cases,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.red[100],
-                            elevation: 2,
-                            child: Container(
-                              height: 86,
-                              width: 155,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text("Deaths",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  global_new_deaths != null
-                                      ? Text(
-                                          global_new_deaths,
-                                          style: TextStyle(
-                                              fontSize: 27,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CircularProgressIndicator(
-                                          strokeWidth: 1.5,
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
+                          CardCount(
+                              numberCount: globalNewCases,
+                              text: 'New Confirmed',
+                              color: Colors.purple[100]),
+                          CardCount(
+                              numberCount: globalNewDeaths,
+                              text: 'Deaths',
+                              color: Colors.red[100]),
                         ],
                       ),
                       SizedBox(
@@ -572,6 +261,49 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CardCount extends StatelessWidget {
+  final String numberCount;
+  final String text;
+  final Color color;
+
+  CardCount({Key key, this.numberCount, this.color, this.text})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: color,
+      elevation: 2,
+      child: Container(
+        height: 86,
+        width: 155,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Text(
+              text,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                numberCount != null
+                    ? Text(
+                        numberCount,
+                        style: TextStyle(
+                            fontSize: 27, fontWeight: FontWeight.bold),
+                      )
+                    : CircularProgressIndicator(
+                        strokeWidth: 1.5,
+                      ),
+              ],
+            )
+          ],
         ),
       ),
     );

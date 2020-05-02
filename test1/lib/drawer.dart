@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'additional.dart';
 
 class mainDrawer extends StatelessWidget {
   @override
@@ -23,8 +22,7 @@ class mainDrawer extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('images/logo.png'),
-                        fit: BoxFit.fill),
+                        image: AssetImage('images/logo.png'), fit: BoxFit.fill),
                   ),
                 ),
                 Container(
@@ -43,37 +41,36 @@ class mainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.star,color: Colors.blue),
+            leading: Icon(Icons.star, color: Colors.blue),
             title: Text(
               "Rate App",
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
-              StoreRedirect.redirect(androidAppId: "io.ionic.skonline");
+              StoreRedirect.redirect(androidAppId: "com.iceapple.corona");
             },
           ),
           ListTile(
-            leading: Icon(Icons.share,color: Colors.blue),
+            leading: Icon(Icons.share, color: Colors.blue),
             title: Text(
               "Share App",
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
-              Share.share('Download our apps to check live update of Covid-19 website https://www.facebook.com/Iceapple26/', subject: 'Corona live Update App');
+              Share.share(
+                  'Download our apps to check live update of Covid-19 website https://www.facebook.com/Iceapple26/',
+                  subject: 'Corona live Update App');
             },
           ),
           ListTile(
-            leading: Icon(Icons.file_download,color: Colors.blue),
+            leading: Icon(Icons.file_download, color: Colors.blue),
             title: Text(
               "Our Apps",
               style: TextStyle(fontSize: 18),
             ),
-            onTap: () {
-              null;
-            },
           ),
-                    ListTile(
-            leading: Icon(Icons.pages,color: Colors.blue),
+          ListTile(
+            leading: Icon(Icons.pages, color: Colors.blue),
             title: Text(
               "Facebook",
               style: TextStyle(fontSize: 18),
