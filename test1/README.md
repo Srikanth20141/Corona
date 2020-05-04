@@ -1,3 +1,5 @@
+Corona Live Update Sri Lanka App built with Flutter
+
 This is a calculator test application built using Flutter. As a test of the framework, I wanted to implement something simple that would help me get the basics down.
 
 Running the app
