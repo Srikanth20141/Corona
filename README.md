@@ -16,8 +16,11 @@ Follow the steps below to run the app on your local machine. You'll need to make
       <th><img width="18"></th>
       <th><img src="https://github.com/Srikanth20141/Corona/blob/master/test1/images/1.png" alt="image"  height="700" width="370"></th>
     </tr>
-
 </table>
 
-
+<table>
+    <tr>
+     <td><img src="https://github.com/Srikanth20141/Corona/blob/master/test1/images/3.jpeg" alt="image"  height="700" width="370"></td>
+    </tr>
+</table>
 
