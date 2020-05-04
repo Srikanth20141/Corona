@@ -27,13 +27,13 @@ class mainDrawer extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    "Ice-Apple",
+                    "abc",
                     style: TextStyle(fontSize: 22, color: Colors.black),
                   ),
                 ),
                 Container(
                   child: Text(
-                    "iceapple26@gmail.com",
+                    "abc@gmail.com",
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                 ),
@@ -47,7 +47,7 @@ class mainDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
-              StoreRedirect.redirect(androidAppId: "com.iceapple.corona");
+              StoreRedirect.redirect(androidAppId: "com.abc.co");
             },
           ),
           ListTile(
@@ -58,7 +58,7 @@ class mainDrawer extends StatelessWidget {
             ),
             onTap: () {
               Share.share(
-                  'Download our apps to check live update of Covid-19 website https://www.facebook.com/Iceapple26/',
+                  'Download our apps to check live update of Covid-19 website https://www.facebook.com/abc/',
                   subject: 'Corona live Update App');
             },
           ),
@@ -76,7 +76,7 @@ class mainDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
-              launch("https://www.facebook.com/Iceapple26/");
+              launch("https://www.facebook.com/abc/");
             },
           ),
         ],
