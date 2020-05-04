@@ -10,4 +10,14 @@ Follow the steps below to run the app on your local machine. You'll need to make
 3.Open an emulator and run flutter run within the cloned repo's folder. <br />
 4.Try it out. <br />
 
+<table>
+    <tr>
+      <th><img src="https://github.com/Srikanth20141/Corona/blob/master/test1/images/2.png" alt="image"  height="700" width="370"></th>
+      <th><img width="18"></th>
+      <th><img src="https://github.com/Srikanth20141/Corona/blob/master/test1/images/1.png" alt="image"  height="700" width="370"></th>
+    </tr>
+
+</table>
+
+
 
